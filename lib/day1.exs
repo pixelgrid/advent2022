@@ -5,19 +5,7 @@ defmodule AdventOfCode2022_Day1 do
     https://adventofcode.com/2022/day/1
   """
 
-  def day1_a do
-    @input_data
-    |> String.split("\n\n", trim: true)
-    |> Enum.reduce(0, fn (calories, max_current) -> 
-      calories
-      |> String.split("\n", trim: true)
-      |> Enum.map(fn calories -> String.to_integer(calories) end)
-      |> Enum.sum
-      |> Kernel.max(max_current)
-    end)
-  end
-
-  def day1_b do
+  defp sort_elves_by_calories_desc do
     @input_data
     |> String.split("\n\n", trim: true)
     |> Enum.map(fn calories -> 
@@ -27,6 +15,13 @@ defmodule AdventOfCode2022_Day1 do
       |> Enum.sum
     end)
     |> Enum.sort(:desc)
+  end
+  def day1_a do
+    sort_elves_by_calories_desc()
+    |> hd()
+  end
+  def day1_b do
+    sort_elves_by_calories_desc()
     |> Enum.take(3)
     |> Enum.sum
   end
