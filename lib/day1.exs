@@ -1,5 +1,5 @@
 defmodule AdventOfCode2022_Day1 do
-  @input_data File.read!("./inputs/day1_a")
+  @input_data File.read!("./inputs/day1")
   @moduledoc """
     Day 1 of 2022 advent of code
     https://adventofcode.com/2022/day/1
