@@ -6,16 +6,16 @@ defmodule AdventOfCode2022_Day2 do
   @mapping %{
     ?A => %{
       previous: ?C,
-      next: ?B,
+      next: ?B
     },
     ?B => %{
       previous: ?A,
-      next: ?C,
+      next: ?C
     },
     ?C => %{
       previous: ?B,
-      next: ?A,
-    },
+      next: ?A
+    }
   }
   defp outcome_in_points(opponents_choice, our_choice) do
     case rem(our_choice, ?X) - rem(opponents_choice, ?A) do
@@ -26,9 +26,11 @@ defmodule AdventOfCode2022_Day2 do
       -2 -> @win_points
     end
   end
+
   defp field_as_choice(opponents_choice, our_choice) do
     rem(our_choice, ?X) + 1 + outcome_in_points(opponents_choice, our_choice)
   end
+
   defp field_as_outcome(opponents_choice, outcome) do
     # X loss, Y draw, Z win
     case outcome do
@@ -37,19 +39,21 @@ defmodule AdventOfCode2022_Day2 do
       ?Z -> rem(@mapping[opponents_choice].next, ?A) + @win_points
     end + 1
   end
+
   def day2_a do
     @input_data
-      |> Enum.reduce(0, fn (<<opponents_choice, " ", our_choice>>, result) ->
-        result + field_as_choice(opponents_choice, our_choice)
-      end)
+    |> Enum.reduce(0, fn <<opponents_choice, " ", our_choice>>, result ->
+      result + field_as_choice(opponents_choice, our_choice)
+    end)
   end
+
   def day2_b do
     @input_data
-      |> Enum.reduce(0, fn (<<opponents_choice, " ", outcome>>, result) ->
-        result + field_as_outcome(opponents_choice, outcome)
-      end)
+    |> Enum.reduce(0, fn <<opponents_choice, " ", outcome>>, result ->
+      result + field_as_outcome(opponents_choice, outcome)
+    end)
   end
 end
 
-IO.puts("Day2-A answer. The total score if the last input is the choise is: #{AdventOfCode2022_Day2.day2_a}")
-IO.puts("Day2-B answer. The total score if the last input is the outcome is: #{AdventOfCode2022_Day2.day2_b}")
+IO.puts(AdventOfCode2022_Day2.day2_a())
+IO.puts(AdventOfCode2022_Day2.day2_b())
